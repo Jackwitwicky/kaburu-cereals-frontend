@@ -23,6 +23,7 @@ import call from '../../assets/images/call.png';
 import mail from '../../assets/images/mail.png';
 import Header from "../Shared/Header/Header";
 import useScrollDirection from "../utils/useScrollDirection";
+import {Link} from "react-router-dom";
 
 
 
@@ -155,9 +156,9 @@ const Home = () => {
               <img src={shopImg} alt="" />
             </div>
             <div className="btn-box">
-              <a href="">
+              <Link to="products">
                 Buy Now
-              </a>
+              </Link>
             </div>
           </div>
         </div>
