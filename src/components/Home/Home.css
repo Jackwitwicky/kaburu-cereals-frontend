@@ -722,3 +722,7 @@ a:focus {
 
 /* end footer section*/
 /*# sourceMappingURL=style.css.map */
+
+.Home__header-image-container {
+    max-height: 400px;
+}

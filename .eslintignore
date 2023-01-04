@@ -1,0 +1,10 @@
+/flow-typed
+/app
+/vendor
+/zendesk_app
+/tmp
+/public
+/frontend/__generated__
+/frontend/dist
+
+jest.config.js
