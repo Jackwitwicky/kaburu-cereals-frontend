@@ -1,5 +1,4 @@
 {
-  "parser": "@babel/eslint-parser",
   "rules": {
     "curly": 2,
     "dot-location": [2, "property"],
@@ -46,14 +45,11 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:flowtype/recommended",
     "plugin:react/recommended",
     "prettier",
-    "prettier/flowtype",
-    "prettier/react",
     "plugin:react-hooks/recommended"
   ],
-  "plugins": ["flowtype", "react", "react-hooks"],
+  "plugins": ["react", "react-hooks"],
   "globals": {
     "beforeAll": true,
     "afterAll": true,
@@ -76,9 +72,6 @@
     "Spree": true
   },
   "settings": {
-    "flowtype": {
-      "onlyFilesWithFlowAnnotation": true
-    },
     "react": {
       "version": "detect"
     }
