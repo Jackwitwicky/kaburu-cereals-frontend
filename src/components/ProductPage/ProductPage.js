@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './ProductPage.css';
+import './ProductPage.scss';
 import Header from '../Shared/Header/Header';
 
 import fruitOne from '../../assets/images/f-1.jpg';
@@ -247,16 +247,10 @@ const ProductPage = () => {
                   </form>
                 </div>
                 <div className="product-info">
-                  <p className="product-type">
-                    <span className="lbl">Product Type:</span>
-                    <a href="#" title="Women's">
-                      Women`&apos;`s
-                    </a>
-                  </p>
                   <p className="product-cat">
                     <span className="lbl">Collections: </span>
                     <a href="#" title="">
-                      Women
+                      Fruits
                     </a>
                   </p>
                   <p className="product-tags">
@@ -336,34 +330,98 @@ const ProductPage = () => {
               <li>Lorem Ipsum is not simply random text.</li>
               <li>Free theme updates</li>
             </ul>
-            <h3>
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-            </h3>
-            <p>
-              You can change the position of any sections such as slider,
-              banner, products, collection and so on by just dragging and
-              dropping.&nbsp;
-            </p>
-            <h3>Lorem Ipsum is not simply random text.</h3>
-            <p>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual teachings of the
-              great explorer of the truth, the master-builder of human
-              happiness.
-            </p>
-            <p>
-              Change colors, fonts, banners, megamenus and more. Preview changes
-              are live before saving them.
-            </p>
-            <h3>1914 translation by H. Rackham</h3>
-            <p>
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expound the actual teachings of the
-              great explorer of the truth, the master-builder of human
-              happiness.
-            </p>
+          </div>
+
+          {/*Recently Product Slider*/}
+          <div className="related-product grid-products">
+            <header className="section-header">
+              <h2 className="section-header__title text-center h2">
+                <span>Related Products</span>
+              </h2>
+              <p className="sub-heading">
+                Find other similar products that you may like
+              </p>
+            </header>
+
+            <div className="ProductPage__related-products_container">
+              <div className="col-3 item">
+                {/*start product image*/}
+                <div className="ProductPage__product-image-container">
+                  <a href="#">
+                    {/*image*/}
+                    <img
+                      className="primary blur-up lazyload Product ProductPage__related-product-image"
+                      data-src={fruitOne}
+                      src={fruitOne}
+                      alt="image"
+                      title="product"
+                    />
+                    {/*End image*/}
+                    {/*Hover image*/}
+                    {/*End hover image*/}
+                  </a>
+                  {/*end product image*/}
+
+                  {/*Start product button*/}
+                  <form
+                    className="ProductPage__related-product-add add"
+                    action="#"
+                    onClick="window.location.href='cart.html'"
+                    method="post"
+                  >
+                    <button
+                      className="btn btn-addto-cart ProductPage__related-product-add_button"
+                      type="button"
+                      tabIndex="0"
+                    >
+                      Add to cart
+                    </button>
+                  </form>
+                  <div className="button-set">
+                    <a
+                      href="#"
+                      title="Quick View"
+                      className="quick-view"
+                      tabIndex="0"
+                    >
+                      <i className="icon anm anm-search-plus-r"></i>
+                    </a>
+                    <div className="wishlist-btn">
+                      <a
+                        className="wishlist add-to-wishlist"
+                        href="wishlist.html"
+                      >
+                        <i className="icon anm anm-heart-l"></i>
+                      </a>
+                    </div>
+                  </div>
+                  {/*end product button*/}
+                </div>
+                {/*end product image*/}
+                {/*start product details*/}
+                <div className="product-details text-center">
+                  {/*product name*/}
+                  <div className="ProductPage-related-product-name">
+                    <a href="#">Orange</a>
+                  </div>
+                  {/*End product name*/}
+                  {/*product price*/}
+                  <div className="product-price">
+                    <span className="price">$600.00</span>
+                  </div>
+                  {/*End product price*/}
+
+                  <div className="product-review">
+                    <i className="font-13 fa fa-star"></i>
+                    <i className="font-13 fa fa-star"></i>
+                    <i className="font-13 fa fa-star"></i>
+                    <i className="font-13 fa fa-star-o"></i>
+                    <i className="font-13 fa fa-star-o"></i>
+                  </div>
+                </div>
+                {/*End product details*/}
+              </div>
+            </div>
           </div>
         </div>
       </div>

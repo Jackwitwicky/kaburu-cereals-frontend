@@ -153,53 +153,53 @@ const Home = () => {
 
       {/*fruit section*/}
 
-      <section class="fruit_section layout_padding">
-        <div class="container">
-          <div class="heading_container">
+      <section className="fruit_section layout_padding">
+        <div className="container">
+          <div className="heading_container">
             <hr />
             <h2>Fresh Fruit</h2>
           </div>
         </div>
-        <div class="container-fluid">
-          <div class="fruit_container">
-            <div class="box">
+        <div className="container-fluid">
+          <div className="fruit_container">
+            <div className="box">
               <img src={fruitOne} alt="" />
-              <div class="link_box">
+              <div className="link_box">
                 <h5>Orange</h5>
                 <a href="">Buy Now</a>
               </div>
             </div>
-            <div class="box">
+            <div className="box">
               <img src={fruitTwo} alt="" />
-              <div class="link_box">
+              <div className="link_box">
                 <h5>Blueberry</h5>
                 <a href="">Buy Now</a>
               </div>
             </div>
-            <div class="box">
+            <div className="box">
               <img src={fruitThree} alt="" />
-              <div class="link_box">
+              <div className="link_box">
                 <h5>Banana</h5>
                 <a href="">Buy Now</a>
               </div>
             </div>
-            <div class="box">
+            <div className="box">
               <img src={fruitFour} alt="" />
-              <div class="link_box">
+              <div className="link_box">
                 <h5>Apple</h5>
                 <a href="">Buy Now</a>
               </div>
             </div>
-            <div class="box">
+            <div className="box">
               <img src={fruitFive} alt="" />
-              <div class="link_box">
+              <div className="link_box">
                 <h5>Mango</h5>
                 <a href="">Buy Now</a>
               </div>
             </div>
-            <div class="box">
+            <div className="box">
               <img src={fruitSix} alt="" />
-              <div class="link_box">
+              <div className="link_box">
                 <h5>Strawberry</h5>
                 <a href="">Buy Now</a>
               </div>
@@ -212,24 +212,24 @@ const Home = () => {
 
       {/*client section*/}
 
-      <section class="client_section layout_padding-bottom">
-        <div class="container ">
-          <div class="heading_container">
+      <section className="client_section layout_padding-bottom">
+        <div className="container ">
+          <div className="heading_container">
             <h2>What Our Cutomer Say</h2>
             <hr />
           </div>
           <div
             id="carouselExample2Controls"
-            class="carousel slide"
+            className="carousel slide"
             data-ride="carousel"
           >
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="client_container layout_padding-top">
-                  <div class="img-box">
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <div className="client_container layout_padding-top">
+                  <div className="img-box">
                     <img src={clientOne} alt="" />
                   </div>
-                  <div class="detail-box">
+                  <div className="detail-box">
                     <h5>Jone Mark</h5>
                     <p>
                       <img src={leftQuote} alt="" />
@@ -244,12 +244,12 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div class="carousel-item">
-                <div class="client_container layout_padding-top">
-                  <div class="img-box">
+              <div className="carousel-item">
+                <div className="client_container layout_padding-top">
+                  <div className="img-box">
                     <img src={clientOne} alt="" />
                   </div>
-                  <div class="detail-box">
+                  <div className="detail-box">
                     <h5>Jone Mark</h5>
                     <p>
                       <img src={leftQuote} alt="" />
@@ -264,12 +264,12 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-              <div class="carousel-item">
-                <div class="client_container layout_padding-top">
-                  <div class="img-box">
+              <div className="carousel-item">
+                <div className="client_container layout_padding-top">
+                  <div className="img-box">
                     <img src={clientOne} alt="" />
                   </div>
-                  <div class="detail-box">
+                  <div className="detail-box">
                     <h5>Jone Mark</h5>
                     <p>
                       <img src={leftQuote} alt="" />
@@ -286,20 +286,20 @@ const Home = () => {
               </div>
             </div>
             <a
-              class="carousel-control-prev"
+              className="carousel-control-prev"
               href="#carouselExample2Controls"
               role="button"
               data-slide="prev"
             >
-              <span class="sr-only">Previous</span>
+              <span className="sr-only">Previous</span>
             </a>
             <a
-              class="carousel-control-next"
+              className="carousel-control-next"
               href="#carouselExample2Controls"
               role="button"
               data-slide="next"
             >
-              <span class="sr-only">Next</span>
+              <span className="sr-only">Next</span>
             </a>
           </div>
         </div>
@@ -309,26 +309,26 @@ const Home = () => {
 
       {/*info section*/}
 
-      <section class="info_section layout_padding">
-        <div class="container">
-          <div class="info_logo">
+      <section className="info_section layout_padding">
+        <div className="container">
+          <div className="info_logo">
             <h2>Kaburu Cereals</h2>
           </div>
-          <div class="info_contact">
-            <div class="row">
-              <div class="col-md-4">
+          <div className="info_contact">
+            <div className="row">
+              <div className="col-md-4">
                 <a href="">
                   <img src={location} alt="" />
                   <span>Passages of Lorem Ipsum available</span>
                 </a>
               </div>
-              <div class="col-md-4">
+              <div className="col-md-4">
                 <a href="">
                   <img src={call} alt="" />
                   <span>Call : +012334567890</span>
                 </a>
               </div>
-              <div class="col-md-4">
+              <div className="col-md-4">
                 <a href="">
                   <img src={mail} alt="" />
                   <span>demo@gmail.com</span>
@@ -342,7 +342,7 @@ const Home = () => {
       {/*end info section*/}
 
       {/*footer section*/}
-      <section class="container-fluid footer_section ">
+      <section className="container-fluid footer_section ">
         <p>
           &copy; <span id="displayYear"></span> All Rights Reserved. Design by
           <a href="https://github.com/Jackwitwicky">Jackson Kiarie</a>
