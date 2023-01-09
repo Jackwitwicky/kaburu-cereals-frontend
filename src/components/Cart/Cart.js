@@ -5,20 +5,14 @@ import Header from '../Shared/Header/Header';
 
 import fruitOne from '../../assets/images/f-1.jpg';
 import CartItem from '../CartItem/CartItem';
+import PageTitle from '../Shared/PageTitle/PageTitle';
 
 const Cart = () => {
   return (
     <>
       <Header isScrolled={true} />
-      {/*Page Title*/}
-      <div className="Cart"></div>
-      <div className="page section-header text-center">
-        <div className="page-title">
-          <div className="wrapper">
-            <h1 className="page-width Cart__title">Your cart</h1>
-          </div>
-        </div>
-      </div>
+
+      <PageTitle title="Your Cart" />
 
       <div className="container">
         <div className="row">
