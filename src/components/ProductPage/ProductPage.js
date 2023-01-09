@@ -2,12 +2,14 @@ import React from 'react';
 
 import './ProductPage.scss';
 import Header from '../Shared/Header/Header';
+import Footer from '../Footer/Footer';
 
 import fruitOne from '../../assets/images/f-1.jpg';
 import creditCardImg from '../../assets/images/credit-card.png';
 import securityImg from '../../assets/images/shield.png';
 import globalShippingImg from '../../assets/images/worldwide.png';
 import callImg from '../../assets/images/phone-call.png';
+import RelatedProductItem from '../RelatedProductItem/RelatedProductItem';
 
 const ProductPage = () => {
   return (
@@ -332,7 +334,7 @@ const ProductPage = () => {
             </ul>
           </div>
 
-          {/*Recently Product Slider*/}
+          {/*Related Product Slider*/}
           <div className="related-product grid-products">
             <header className="section-header">
               <h2 className="section-header__title text-center h2">
@@ -343,88 +345,12 @@ const ProductPage = () => {
               </p>
             </header>
 
-            <div className="ProductPage__related-products_container">
-              <div className="col-3 item">
-                {/*start product image*/}
-                <div className="ProductPage__product-image-container">
-                  <a href="#">
-                    {/*image*/}
-                    <img
-                      className="primary blur-up lazyload Product ProductPage__related-product-image"
-                      data-src={fruitOne}
-                      src={fruitOne}
-                      alt="image"
-                      title="product"
-                    />
-                    {/*End image*/}
-                    {/*Hover image*/}
-                    {/*End hover image*/}
-                  </a>
-                  {/*end product image*/}
-
-                  {/*Start product button*/}
-                  <form
-                    className="ProductPage__related-product-add add"
-                    action="#"
-                    onClick="window.location.href='cart.html'"
-                    method="post"
-                  >
-                    <button
-                      className="btn btn-addto-cart ProductPage__related-product-add_button"
-                      type="button"
-                      tabIndex="0"
-                    >
-                      Add to cart
-                    </button>
-                  </form>
-                  <div className="button-set">
-                    <a
-                      href="#"
-                      title="Quick View"
-                      className="quick-view"
-                      tabIndex="0"
-                    >
-                      <i className="icon anm anm-search-plus-r"></i>
-                    </a>
-                    <div className="wishlist-btn">
-                      <a
-                        className="wishlist add-to-wishlist"
-                        href="wishlist.html"
-                      >
-                        <i className="icon anm anm-heart-l"></i>
-                      </a>
-                    </div>
-                  </div>
-                  {/*end product button*/}
-                </div>
-                {/*end product image*/}
-                {/*start product details*/}
-                <div className="product-details text-center">
-                  {/*product name*/}
-                  <div className="ProductPage-related-product-name">
-                    <a href="#">Orange</a>
-                  </div>
-                  {/*End product name*/}
-                  {/*product price*/}
-                  <div className="product-price">
-                    <span className="price">$600.00</span>
-                  </div>
-                  {/*End product price*/}
-
-                  <div className="product-review">
-                    <i className="font-13 fa fa-star"></i>
-                    <i className="font-13 fa fa-star"></i>
-                    <i className="font-13 fa fa-star"></i>
-                    <i className="font-13 fa fa-star-o"></i>
-                    <i className="font-13 fa fa-star-o"></i>
-                  </div>
-                </div>
-                {/*End product details*/}
-              </div>
-            </div>
+            <RelatedProductItem image={fruitOne} title="Orange" price={600.0} />
           </div>
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };

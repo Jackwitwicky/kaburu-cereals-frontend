@@ -4,18 +4,23 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ProductPage from "./components/ProductPage/ProductPage";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ProductPage from './components/ProductPage/ProductPage';
+import Products from './components/Products/Products';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
+    path: '/',
+    element: <App />
   },
   {
-    path: "products",
-    element: <ProductPage />,
+    path: 'products/:productId',
+    element: <ProductPage />
   },
+  {
+    path: 'products',
+    element: <Products />
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
