@@ -1,6 +1,8 @@
 import React from 'react';
 import './Header.css';
+
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 
 const Header = ({ isScrolled }) => {
   return (
@@ -59,6 +61,11 @@ const Header = ({ isScrolled }) => {
                       <a className="nav-link" href="#">
                         Login
                       </a>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link" to="cart">
+                        Cart
+                      </Link>
                     </li>
                   </ul>
                   <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
