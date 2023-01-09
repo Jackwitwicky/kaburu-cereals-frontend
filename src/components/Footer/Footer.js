@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <>
       {/*info section*/}
-      <section className="info_section layout_padding">
+      <section id="contact" className="info_section layout_padding">
         <div className="container">
           <div className="info_logo">
             <h2>Kaburu Cereals</h2>

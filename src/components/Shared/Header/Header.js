@@ -2,9 +2,14 @@ import React from 'react';
 import './Header.css';
 
 import classnames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 const Header = ({ isScrolled }) => {
+  const location = useLocation();
+  const isHomePath = location.pathname === '/';
+
+  console.log('***The location is: ', location.pathname);
   return (
     <>
       {/*nav section*/}
@@ -32,30 +37,32 @@ const Header = ({ isScrolled }) => {
               >
                 <div className="d-flex  flex-column flex-lg-row align-items-center">
                   <ul className="navbar-nav  ">
-                    <li className="nav-item active">
-                      <a className="nav-link" href="index.html">
-                        Home <span className="sr-only">(current)</span>
-                      </a>
+                    <li className="nav-item">
+                      <Link to="/" className="nav-link">
+                        Home
+                      </Link>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="about.html">
-                        About{' '}
-                      </a>
+                      <HashLink to="/#about" className="nav-link">
+                        About
+                      </HashLink>
                     </li>
                     <li className="nav-item">
-                      <a className="nav-link" href="fruit.html">
-                        Our Fruit{' '}
-                      </a>
+                      <Link to="/products" className="nav-link">
+                        All Cereals
+                      </Link>
                     </li>
+                    {isHomePath && (
+                      <li className="nav-item">
+                        <HashLink to="#testimonial" className="nav-link">
+                          Testimonial
+                        </HashLink>
+                      </li>
+                    )}
                     <li className="nav-item">
-                      <a className="nav-link" href="testimonial.html">
-                        Testimonial
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" href="contact.html">
+                      <HashLink to="#contact" className="nav-link">
                         Contact Us
-                      </a>
+                      </HashLink>
                     </li>
                     <li className="nav-item">
                       <a className="nav-link" href="#">
@@ -63,7 +70,7 @@ const Header = ({ isScrolled }) => {
                       </a>
                     </li>
                     <li className="nav-item">
-                      <Link className="nav-link" to="cart">
+                      <Link className="nav-link" to="/cart">
                         Cart
                       </Link>
                     </li>

@@ -2,23 +2,25 @@ import React from 'react';
 import './Home.css';
 
 import sliderImg from '../../assets/images/slider-img.jpg';
-import shopImg from '../../assets/images/shop-img.jpg';
-import aboutImg from '../../assets/images/about-img.jpg';
+import cerealSack from '../../assets/images/cereal-sack.png';
+import cerealBoxImg from '../../assets/images/cereal-box.jpg';
 
-import fruitOne from '../../assets/images/f-1.jpg';
-import fruitTwo from '../../assets/images/f-2.jpg';
-import fruitThree from '../../assets/images/f-3.jpg';
-import fruitFour from '../../assets/images/f-4.jpg';
-import fruitFive from '../../assets/images/f-5.jpg';
-import fruitSix from '../../assets/images/f-6.jpg';
+import riceImage from '../../assets/images/rice.jpg';
+import kamandeImage from '../../assets/images/kamande.jpg';
+import popcornImage from '../../assets/images/popcorn.jpg';
+import groundnutsImage from '../../assets/images/groundnuts.png';
+import maizeMealImage from '../../assets/images/maize-meal.jpg';
+import yellowBeanImage from '../../assets/images/yellow-bean.jpg';
 
 import clientOne from '../../assets/images/client-img.png';
 import rightQuote from '../../assets/images/right-quote.png';
 import leftQuote from '../../assets/images/left-quote.png';
+import headerBannerImg from '../../assets/images/cereals_one.jpg';
 
 import Header from '../Shared/Header/Header';
 import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
+import HomeProductItem from '../HomeProductItem/HomeProductItem';
 
 const Home = () => {
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -57,7 +59,7 @@ const Home = () => {
             <div className="carousel-inner">
               <div className="carousel-item active">
                 <div className="img-box Home__header-image-container">
-                  <img src={sliderImg} alt="" />
+                  <img src={headerBannerImg} alt="" />
                 </div>
               </div>
               <div className="carousel-item">
@@ -71,22 +73,6 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <a
-              className="carousel-control-prev"
-              href="#carouselExampleControls"
-              role="button"
-              data-slide="prev"
-            >
-              <span className="sr-only">Previous</span>
-            </a>
-            <a
-              className="carousel-control-next"
-              href="#carouselExampleControls"
-              role="button"
-              data-slide="next"
-            >
-              <span className="sr-only">Next</span>
-            </a>
           </div>
         </section>
         {/*end slider section*/}
@@ -102,13 +88,11 @@ const Home = () => {
         <div className="container">
           <div className="box">
             <div className="detail-box">
-              <h2>Fruit shop</h2>
-              <p>
-                There are many variations of passages of Lorem Ipsum available
-              </p>
+              <h2>Kaburu Cereals</h2>
+              <p>The best and most affordable cereals, just an order away</p>
             </div>
             <div className="img-box">
-              <img src={shopImg} alt="" />
+              <img src={cerealSack} alt="" />
             </div>
             <div className="btn-box">
               <Link to="products">Buy Now</Link>
@@ -121,26 +105,25 @@ const Home = () => {
 
       {/*about section*/}
 
-      <section className="about_section">
+      <section id="about" className="about_section">
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-6 px-0">
               <div className="img-box">
-                <img src={aboutImg} alt="" />
+                <img src={cerealBoxImg} alt="" />
               </div>
             </div>
             <div className="col-md-5">
               <div className="detail-box">
                 <div className="heading_container">
                   <hr />
-                  <h2>About Our Fruit Shop</h2>
+                  <h2>About Our Cereal Shop</h2>
                 </div>
                 <p>
-                  There are many variations of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour
+                  We source all our cereals directly from our vetted list of
+                  local farmers to ensure the best approved quality and
+                  unmatched pricing compared with our competitors.
                 </p>
-                <a href="">Read More</a>
               </div>
             </div>
           </div>
@@ -149,68 +132,35 @@ const Home = () => {
 
       {/*end about section*/}
 
-      {/*fruit section*/}
+      {/*cereal section*/}
 
       <section className="fruit_section layout_padding">
         <div className="container">
           <div className="heading_container">
             <hr />
-            <h2>Fresh Fruit</h2>
+            <h2>Recently Added Cereals</h2>
           </div>
         </div>
         <div className="container-fluid">
           <div className="fruit_container">
-            <div className="box">
-              <img src={fruitOne} alt="" />
-              <div className="link_box">
-                <h5>Orange</h5>
-                <a href="">Buy Now</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src={fruitTwo} alt="" />
-              <div className="link_box">
-                <h5>Blueberry</h5>
-                <a href="">Buy Now</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src={fruitThree} alt="" />
-              <div className="link_box">
-                <h5>Banana</h5>
-                <a href="">Buy Now</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src={fruitFour} alt="" />
-              <div className="link_box">
-                <h5>Apple</h5>
-                <a href="">Buy Now</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src={fruitFive} alt="" />
-              <div className="link_box">
-                <h5>Mango</h5>
-                <a href="">Buy Now</a>
-              </div>
-            </div>
-            <div className="box">
-              <img src={fruitSix} alt="" />
-              <div className="link_box">
-                <h5>Strawberry</h5>
-                <a href="">Buy Now</a>
-              </div>
-            </div>
+            <HomeProductItem image={riceImage} title="Rice" />
+            <HomeProductItem image={kamandeImage} title="Kamande" />
+            <HomeProductItem image={popcornImage} title="Popcorn" />
+            <HomeProductItem image={groundnutsImage} title="Ground Nuts" />
+            <HomeProductItem image={maizeMealImage} title="Maize Meal" />
+            <HomeProductItem image={yellowBeanImage} title="Yellow Bean" />
           </div>
         </div>
       </section>
 
-      {/*end fruit section*/}
+      {/*end cereal section*/}
 
       {/*client section*/}
 
-      <section className="client_section layout_padding-bottom">
+      <section
+        id="testimonial"
+        className="client_section layout_padding-bottom"
+      >
         <div className="container ">
           <div className="heading_container">
             <h2>What Our Cutomer Say</h2>
