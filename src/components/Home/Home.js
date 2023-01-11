@@ -1,6 +1,8 @@
 import React from 'react';
 import './Home.css';
 
+import { useSelector, useDispatch } from "react-redux";
+
 import sliderImg from '../../assets/images/slider-img.jpg';
 import cerealSack from '../../assets/images/cereal-sack.png';
 import cerealBoxImg from '../../assets/images/cereal-box.jpg';
@@ -21,8 +23,11 @@ import Header from '../Shared/Header/Header';
 import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
 import HomeProductItem from '../HomeProductItem/HomeProductItem';
+import getProducts from '../../api/product/get-products';
 
 const Home = () => {
+  const dispatch = useDispatch();
+
   const [isScrolled, setIsScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -37,6 +42,12 @@ const Home = () => {
     return () => {
       document.removeEventListener('scroll', scrollListener);
     };
+  }, []);
+
+  React.useEffect(() => {
+    console.log('*** About to make get products request: ');
+    getProducts();
+    console.log('*** Done making get products request: ');
   }, []);
 
   return (
