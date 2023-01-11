@@ -1,6 +1,12 @@
-import { createStore } from 'redux';
-import { productReducer } from './reducers/productReducer';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-const store = createStore(productReducer);
+import { productReducer } from './reducers/productReducer';
+import rootSaga from './sagas/index';
+
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(productReducer, applyMiddleware(sagaMiddleware));
+
+sagaMiddleware.run(rootSaga);
 
 export default store;

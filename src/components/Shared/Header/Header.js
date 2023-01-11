@@ -9,7 +9,6 @@ const Header = ({ isScrolled }) => {
   const location = useLocation();
   const isHomePath = location.pathname === '/';
 
-  console.log('***The location is: ', location.pathname);
   return (
     <>
       {/*nav section*/}

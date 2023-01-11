@@ -1,18 +1,11 @@
 import React from 'react';
 import './Home.css';
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
 
 import sliderImg from '../../assets/images/slider-img.jpg';
 import cerealSack from '../../assets/images/cereal-sack.png';
 import cerealBoxImg from '../../assets/images/cereal-box.jpg';
-
-import riceImage from '../../assets/images/rice.jpg';
-import kamandeImage from '../../assets/images/kamande.jpg';
-import popcornImage from '../../assets/images/popcorn.jpg';
-import groundnutsImage from '../../assets/images/groundnuts.png';
-import maizeMealImage from '../../assets/images/maize-meal.jpg';
-import yellowBeanImage from '../../assets/images/yellow-bean.jpg';
 
 import clientOne from '../../assets/images/client-img.png';
 import rightQuote from '../../assets/images/right-quote.png';
@@ -23,10 +16,12 @@ import Header from '../Shared/Header/Header';
 import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
 import HomeProductItem from '../HomeProductItem/HomeProductItem';
-import getProducts from '../../api/product/get-products';
-
+import { getProducts } from '../../actions/productActions';
 const Home = () => {
   const dispatch = useDispatch();
+
+  const products = useSelector((state) => state.products);
+  // const loading = useSelector(state => state.products.loading);
 
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -45,13 +40,12 @@ const Home = () => {
   }, []);
 
   React.useEffect(() => {
-    console.log('*** About to make get products request: ');
-    getProducts();
-    console.log('*** Done making get products request: ');
+    dispatch(getProducts());
   }, []);
 
   return (
     <div>
+      {console.log('*** The products after fetching are: ', products)}
       <div className="hero_area">
         {/*header section starts*/}
         <div className="brand_box">
@@ -154,12 +148,15 @@ const Home = () => {
         </div>
         <div className="container-fluid">
           <div className="fruit_container">
-            <HomeProductItem image={riceImage} title="Rice" />
-            <HomeProductItem image={kamandeImage} title="Kamande" />
-            <HomeProductItem image={popcornImage} title="Popcorn" />
-            <HomeProductItem image={groundnutsImage} title="Ground Nuts" />
-            <HomeProductItem image={maizeMealImage} title="Maize Meal" />
-            <HomeProductItem image={yellowBeanImage} title="Yellow Bean" />
+            {products.slice(0, 6).map((product) => {
+              return (
+                <HomeProductItem
+                  key={product?.id}
+                  image={product?.master?.images[0]?.largeUrl}
+                  title={product?.name}
+                />
+              );
+            })}
           </div>
         </div>
       </section>

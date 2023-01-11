@@ -1,5 +1,3 @@
-import { $AxiosXHR, AxiosXHRConfig } from 'axios';
-
 import axios from 'axios';
 import snakeReplacer from '../utils/snakeReplacer';
 import camelReplacer from '../utils/camelReplacer';
@@ -9,10 +7,6 @@ const buildHeader = () => {
     'Content-Type': 'application/json',
     Accept: 'application/json'
   };
-
-  // if (typeof Spree !== 'undefined' && Spree.api_key) {
-  //   header.Authorization = `Bearer ${Spree.api_key}`;
-  // }
 
   if (typeof document !== 'undefined') {
     header['X-CSRF-Token'] = document
