@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
@@ -9,6 +11,7 @@ import ProductPage from './components/ProductPage/ProductPage';
 import Products from './components/Products/Products';
 import Cart from './components/Cart/Cart';
 import Login from './components/Session/Login/Login';
+import store from './store';
 
 const router = createBrowserRouter([
   {
@@ -36,7 +39,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 

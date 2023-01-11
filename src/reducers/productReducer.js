@@ -5,6 +5,7 @@ import {
 } from '../actionTypes/actionTypes';
 
 const initialState = {
+  allProductsFetched: false,
   loading: false,
   numOfItems: 0,
   count: 0,
@@ -25,6 +26,7 @@ export const productReducer = (state = initialState, action) => {
     case GET_PRODUCTS_SUCCESS:
       return {
         ...state,
+        allProductsFetched: true,
         loading: false,
         products: action.products
       };

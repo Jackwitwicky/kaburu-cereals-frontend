@@ -4,12 +4,25 @@ import './Products.scss';
 
 import Header from '../Shared/Header/Header';
 import Footer from '../Footer/Footer';
+import { useSelector, useDispatch } from 'react-redux';
 
-import productsBanner from '../../assets/images/products-banner.jpg';
-import fruitOne from '../../assets/images/f-1.jpg';
+import productsBanner from '../../assets/images/cereals_bg.jpg';
 import ProductListItem from '../ProductListItem/ProductListItem';
 
+import { getProducts } from '../../actions/productActions';
+
 const Products = () => {
+  const dispatch = useDispatch();
+
+  const allProductsFetched = useSelector((state) => state.allProductsFetched);
+  const products = useSelector((state) => state.products);
+
+  React.useEffect(() => {
+    if (!allProductsFetched) {
+      dispatch(getProducts());
+    }
+  }, []);
+
   return (
     <>
       <Header isScrolled={true} />
@@ -53,16 +66,17 @@ const Products = () => {
 
               <div className="list-view-items grid--view-items">
                 {/*ListView Item*/}
-                <ProductListItem
-                  img={fruitOne}
-                  title="Camelia Reversible Jacket"
-                  description="Belle Multipurpose Bootstrap 4 Html Template that will
-                      give you and your customers a smooth shopping experience
-                      which can be used for various kinds of stores such as
-                      boutiques, bookstores, technology stores, jewelries and
-                      other types of web shops...."
-                  price={500}
-                />
+                {products.map((product) => {
+                  return (
+                    <ProductListItem
+                      key={product?.id}
+                      image={product?.master?.images[0]?.largeUrl}
+                      title={product?.name}
+                      description={product?.description}
+                      price={product?.displayPrice}
+                    />
+                  );
+                })}
               </div>
               {/*End ListView Item*/}
             </div>

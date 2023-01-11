@@ -17,6 +17,7 @@ import Footer from '../Footer/Footer';
 import { Link } from 'react-router-dom';
 import HomeProductItem from '../HomeProductItem/HomeProductItem';
 import { getProducts } from '../../actions/productActions';
+
 const Home = () => {
   const dispatch = useDispatch();
 
