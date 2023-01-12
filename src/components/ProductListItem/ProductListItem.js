@@ -1,8 +1,9 @@
 import React from 'react';
 
 import './ProductListItem.scss';
+import { Link } from 'react-router-dom';
 
-const ProductListItem = ({ image, title, description, price }) => {
+const ProductListItem = ({ image, title, description, price, slug }) => {
   return (
     <>
       <div className="list-product list-view-item">
@@ -34,9 +35,12 @@ const ProductListItem = ({ image, title, description, price }) => {
           </p>
           {/*End Price*/}
           <form className="variants" action="#">
-            <button className="btn btn--small" type="button">
+            {/*<button className="btn btn--small" type="button">*/}
+            {/*  View Product*/}
+            {/*</button>*/}
+            <Link to={`/products/${slug}`} className="btn btn--small">
               View Product
-            </button>
+            </Link>
           </form>
         </div>
       </div>

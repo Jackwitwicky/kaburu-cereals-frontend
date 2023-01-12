@@ -74,6 +74,7 @@ const Products = () => {
                       title={product?.name}
                       description={product?.description}
                       price={product?.displayPrice}
+                      slug={product?.slug}
                     />
                   );
                 })}
