@@ -3,6 +3,8 @@ import React from 'react';
 import './WeightOption.scss';
 
 import classnames from 'classnames';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 const WeightOption = ({ index, title, inStock, onWeightOptionSelected }) => {
   return (
@@ -23,10 +25,13 @@ const WeightOption = ({ index, title, inStock, onWeightOptionSelected }) => {
       <label
         className="swatchLbl medium rectangle"
         htmlFor={`swatch-${index}`}
-        title={title}
+        id={`variant-out-of-stock${index}`}
+        data-tooltip-content="Item is out of stock"
       >
         {title}
       </label>
+
+      {!inStock && <Tooltip anchorId={`variant-out-of-stock${index}`} />}
     </div>
   );
 };

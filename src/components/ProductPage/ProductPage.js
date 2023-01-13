@@ -194,6 +194,10 @@ const ProductPage = () => {
                             type="button"
                             name="add"
                             className="btn product-form__cart-submit ProductPage__add-to-cart-btn"
+                            disabled={
+                              selectedVariant === null ||
+                              product?.totalOnHand === 0
+                            }
                           >
                             <span id="AddToCartText-product-template">
                               Add To Cart
