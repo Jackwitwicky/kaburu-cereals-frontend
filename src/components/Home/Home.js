@@ -2,6 +2,7 @@ import React from 'react';
 import './Home.css';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import sliderImg from '../../assets/images/slider-img.jpg';
 import cerealSack from '../../assets/images/cereal-sack.png';
@@ -14,14 +15,16 @@ import headerBannerImg from '../../assets/images/cereals_one.jpg';
 
 import Header from '../Shared/Header/Header';
 import Footer from '../Footer/Footer';
-import { Link } from 'react-router-dom';
 import HomeProductItem from '../HomeProductItem/HomeProductItem';
+import Loader from '../Loader/Loader';
+
 import { getProducts } from '../../actions/productActions';
 
 const Home = () => {
   const dispatch = useDispatch();
 
   const products = useSelector((state) => state.products);
+  const allProductsFetched = useSelector((state) => state.allProductsFetched);
   // const loading = useSelector(state => state.products.loading);
 
   const [isScrolled, setIsScrolled] = React.useState(false);
@@ -88,181 +91,189 @@ const Home = () => {
 
       <Header isScrolled={isScrolled} />
 
-      {/*shop section*/}
+      {!allProductsFetched && <Loader />}
 
-      <section className="shop_section layout_padding">
-        <div className="container">
-          <div className="box">
-            <div className="detail-box">
-              <h2>Kaburu Cereals</h2>
-              <p>The best and most affordable cereals, just an order away</p>
-            </div>
-            <div className="img-box">
-              <img src={cerealSack} alt="" />
-            </div>
-            <div className="btn-box">
-              <Link to="products">Buy Now</Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      {allProductsFetched && (
+        <div>
+          {/*shop section*/}
 
-      {/*end shop section*/}
-
-      {/*about section*/}
-
-      <section id="about" className="about_section">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-6 px-0">
-              <div className="img-box">
-                <img src={cerealBoxImg} alt="" />
-              </div>
-            </div>
-            <div className="col-md-5">
-              <div className="detail-box">
-                <div className="heading_container">
-                  <hr />
-                  <h2>About Our Cereal Shop</h2>
+          <section className="shop_section layout_padding">
+            <div className="container">
+              <div className="box">
+                <div className="detail-box">
+                  <h2>Kaburu Cereals</h2>
+                  <p>
+                    The best and most affordable cereals, just an order away
+                  </p>
                 </div>
-                <p>
-                  We source all our cereals directly from our vetted list of
-                  local farmers to ensure the best approved quality and
-                  unmatched pricing compared with our competitors.
-                </p>
+                <div className="img-box">
+                  <img src={cerealSack} alt="" />
+                </div>
+                <div className="btn-box">
+                  <Link to="products">Buy Now</Link>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/*end about section*/}
+          {/*end shop section*/}
 
-      {/*cereal section*/}
+          {/*about section*/}
 
-      <section className="fruit_section layout_padding">
-        <div className="container">
-          <div className="heading_container">
-            <hr />
-            <h2>Recently Added Cereals</h2>
-          </div>
-        </div>
-        <div className="container-fluid">
-          <div className="fruit_container">
-            {products.slice(0, 6).map((product) => {
-              return (
-                <HomeProductItem
-                  key={product?.id}
-                  image={product?.master?.images[0]?.largeUrl}
-                  title={product?.name}
-                />
-              );
-            })}
-          </div>
-        </div>
-      </section>
+          <section id="about" className="about_section">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-md-6 px-0">
+                  <div className="img-box">
+                    <img src={cerealBoxImg} alt="" />
+                  </div>
+                </div>
+                <div className="col-md-5">
+                  <div className="detail-box">
+                    <div className="heading_container">
+                      <hr />
+                      <h2>About Our Cereal Shop</h2>
+                    </div>
+                    <p>
+                      We source all our cereals directly from our vetted list of
+                      local farmers to ensure the best approved quality and
+                      unmatched pricing compared with our competitors.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
-      {/*end cereal section*/}
+          {/*end about section*/}
 
-      {/*client section*/}
+          {/*cereal section*/}
 
-      <section
-        id="testimonial"
-        className="client_section layout_padding-bottom"
-      >
-        <div className="container ">
-          <div className="heading_container">
-            <h2>What Our Cutomer Say</h2>
-            <hr />
-          </div>
-          <div
-            id="carouselExample2Controls"
-            className="carousel slide"
-            data-ride="carousel"
+          <section className="fruit_section layout_padding">
+            <div className="container">
+              <div className="heading_container">
+                <hr />
+                <h2>Recently Added Cereals</h2>
+              </div>
+            </div>
+            <div className="container-fluid">
+              <div className="fruit_container">
+                {products.slice(0, 6).map((product) => {
+                  return (
+                    <HomeProductItem
+                      key={product?.id}
+                      image={product?.master?.images[0]?.largeUrl}
+                      title={product?.name}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </section>
+
+          {/*end cereal section*/}
+
+          {/*client section*/}
+
+          <section
+            id="testimonial"
+            className="client_section layout_padding-bottom"
           >
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <div className="client_container layout_padding-top">
-                  <div className="img-box">
-                    <img src={clientOne} alt="" />
-                  </div>
-                  <div className="detail-box">
-                    <h5>Jone Mark</h5>
-                    <p>
-                      <img src={leftQuote} alt="" />
-                      <span>Lorem ipsum dolor sit amet,</span>
-                      <img src={rightQuote} alt="" /> <br />
-                      consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nostrud exercitation ullamco laboris ut
-                      aliquip ex ea commodo consequat. Duis aute irure dolor in
-                      reprehenderit in voluptate velit esse
-                    </p>
-                  </div>
-                </div>
+            <div className="container ">
+              <div className="heading_container">
+                <h2>What Our Cutomer Say</h2>
+                <hr />
               </div>
-              <div className="carousel-item">
-                <div className="client_container layout_padding-top">
-                  <div className="img-box">
-                    <img src={clientOne} alt="" />
+              <div
+                id="carouselExample2Controls"
+                className="carousel slide"
+                data-ride="carousel"
+              >
+                <div className="carousel-inner">
+                  <div className="carousel-item active">
+                    <div className="client_container layout_padding-top">
+                      <div className="img-box">
+                        <img src={clientOne} alt="" />
+                      </div>
+                      <div className="detail-box">
+                        <h5>Jone Mark</h5>
+                        <p>
+                          <img src={leftQuote} alt="" />
+                          <span>Lorem ipsum dolor sit amet,</span>
+                          <img src={rightQuote} alt="" /> <br />
+                          consectetur adipiscing elit, sed do eiusmod tempor
+                          incididunt ut labore et dolore magna aliqua. Ut enim
+                          ad minim veniam, quis nostrud exercitation ullamco
+                          laboris ut aliquip ex ea commodo consequat. Duis aute
+                          irure dolor in reprehenderit in voluptate velit esse
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="detail-box">
-                    <h5>Jone Mark</h5>
-                    <p>
-                      <img src={leftQuote} alt="" />
-                      <span>Lorem ipsum dolor sit amet,</span>
-                      <img src={rightQuote} alt="" /> <br />
-                      consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nostrud exercitation ullamco laboris ut
-                      aliquip ex ea commodo consequat. Duis aute irure dolor in
-                      reprehenderit in voluptate velit esse
-                    </p>
+                  <div className="carousel-item">
+                    <div className="client_container layout_padding-top">
+                      <div className="img-box">
+                        <img src={clientOne} alt="" />
+                      </div>
+                      <div className="detail-box">
+                        <h5>Jone Mark</h5>
+                        <p>
+                          <img src={leftQuote} alt="" />
+                          <span>Lorem ipsum dolor sit amet,</span>
+                          <img src={rightQuote} alt="" /> <br />
+                          consectetur adipiscing elit, sed do eiusmod tempor
+                          incididunt ut labore et dolore magna aliqua. Ut enim
+                          ad minim veniam, quis nostrud exercitation ullamco
+                          laboris ut aliquip ex ea commodo consequat. Duis aute
+                          irure dolor in reprehenderit in voluptate velit esse
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="carousel-item">
+                    <div className="client_container layout_padding-top">
+                      <div className="img-box">
+                        <img src={clientOne} alt="" />
+                      </div>
+                      <div className="detail-box">
+                        <h5>Jone Mark</h5>
+                        <p>
+                          <img src={leftQuote} alt="" />
+                          <span>Lorem ipsum dolor sit amet,</span>
+                          <img src={rightQuote} alt="" /> <br />
+                          consectetur adipiscing elit, sed do eiusmod tempor
+                          incididunt ut labore et dolore magna aliqua. Ut enim
+                          ad minim veniam, quis nostrud exercitation ullamco
+                          laboris ut aliquip ex ea commodo consequat. Duis aute
+                          irure dolor in reprehenderit in voluptate velit esse
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="carousel-item">
-                <div className="client_container layout_padding-top">
-                  <div className="img-box">
-                    <img src={clientOne} alt="" />
-                  </div>
-                  <div className="detail-box">
-                    <h5>Jone Mark</h5>
-                    <p>
-                      <img src={leftQuote} alt="" />
-                      <span>Lorem ipsum dolor sit amet,</span>
-                      <img src={rightQuote} alt="" /> <br />
-                      consectetur adipiscing elit, sed do eiusmod tempor
-                      incididunt ut labore et dolore magna aliqua. Ut enim ad
-                      minim veniam, quis nostrud exercitation ullamco laboris ut
-                      aliquip ex ea commodo consequat. Duis aute irure dolor in
-                      reprehenderit in voluptate velit esse
-                    </p>
-                  </div>
-                </div>
+                <a
+                  className="carousel-control-prev"
+                  href="#carouselExample2Controls"
+                  role="button"
+                  data-slide="prev"
+                >
+                  <span className="sr-only">Previous</span>
+                </a>
+                <a
+                  className="carousel-control-next"
+                  href="#carouselExample2Controls"
+                  role="button"
+                  data-slide="next"
+                >
+                  <span className="sr-only">Next</span>
+                </a>
               </div>
             </div>
-            <a
-              className="carousel-control-prev"
-              href="#carouselExample2Controls"
-              role="button"
-              data-slide="prev"
-            >
-              <span className="sr-only">Previous</span>
-            </a>
-            <a
-              className="carousel-control-next"
-              href="#carouselExample2Controls"
-              role="button"
-              data-slide="next"
-            >
-              <span className="sr-only">Next</span>
-            </a>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/*end client section*/}
+          {/*end client section*/}
+        </div>
+      )}
 
       <Footer />
     </div>

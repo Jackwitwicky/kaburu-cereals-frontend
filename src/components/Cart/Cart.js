@@ -6,6 +6,7 @@ import Header from '../Shared/Header/Header';
 import fruitOne from '../../assets/images/f-1.jpg';
 import CartItem from '../CartItem/CartItem';
 import PageTitle from '../Shared/PageTitle/PageTitle';
+import Footer from '../Footer/Footer';
 
 const Cart = () => {
   return (
@@ -125,6 +126,8 @@ const Cart = () => {
         </div>
       </div>
       {/*End Page Title*/}
+
+      <Footer />
     </>
   );
 };

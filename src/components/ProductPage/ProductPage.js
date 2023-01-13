@@ -4,16 +4,19 @@ import './ProductPage.scss';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { BsPlus, BsDash } from 'react-icons/bs';
+
 import Header from '../Shared/Header/Header';
 import Footer from '../Footer/Footer';
 import Loader from '../Loader/Loader';
+import WeightOption from '../WeightOption/WeightOption';
+import RelatedProductItem from '../RelatedProductItem/RelatedProductItem';
 
 import fruitOne from '../../assets/images/f-1.jpg';
 import creditCardImg from '../../assets/images/credit-card.png';
 import securityImg from '../../assets/images/shield.png';
 import globalShippingImg from '../../assets/images/worldwide.png';
 import callImg from '../../assets/images/phone-call.png';
-import RelatedProductItem from '../RelatedProductItem/RelatedProductItem';
 import { getProducts } from '../../actions/productActions';
 
 const ProductPage = () => {
@@ -28,11 +31,30 @@ const ProductPage = () => {
   );
   const allProductsFetched = useSelector((state) => state.allProductsFetched);
 
+  const [selectedVariant, setSelectedVariant] = React.useState(null);
+  const [selectedItemCount, setSelectedItemCount] = React.useState(1);
+
   React.useEffect(() => {
     if (!allProductsFetched) {
       dispatch(getProducts());
     }
   }, []);
+
+  const onWeightOptionSelected = (index) => {
+    setSelectedVariant(
+      product?.variants.find((variant) => variant.id === index)
+    );
+  };
+
+  const onAddItemCountHandler = () => {
+    setSelectedItemCount(selectedItemCount + 1);
+  };
+
+  const onSubtractItemCountHandler = () => {
+    if (selectedItemCount > 1) {
+      setSelectedItemCount(selectedItemCount - 1);
+    }
+  };
 
   return (
     <>
@@ -119,104 +141,25 @@ const ProductPage = () => {
                         data-option-index="1"
                       >
                         <div className="product-form__item">
-                          <label className="header">
-                            Size: <span className="slVariant">XS</span>
+                          <label className="header ProductPage__selected-weight">
+                            Weight:{' '}
+                            <span className="slVariant">
+                              {selectedVariant
+                                ? selectedVariant.optionValues[0]?.presentation
+                                : 'Not selected'}
+                            </span>
                           </label>
-                          <div
-                            data-value="XS"
-                            className="swatch-element xs available"
-                          >
-                            <input
-                              className="swatchInput"
-                              id="swatch-1-xs"
-                              type="radio"
-                              name="option-1"
-                              value="XS"
-                            />
-                            <label
-                              className="swatchLbl medium rectangle"
-                              htmlFor="swatch-1-xs"
-                              title="XS"
-                            >
-                              XS
-                            </label>
-                          </div>
-                          <div
-                            data-value="S"
-                            className="swatch-element s available"
-                          >
-                            <input
-                              className="swatchInput"
-                              id="swatch-1-s"
-                              type="radio"
-                              name="option-1"
-                              value="S"
-                            />
-                            <label
-                              className="swatchLbl medium rectangle"
-                              htmlFor="swatch-1-s"
-                              title="S"
-                            >
-                              S
-                            </label>
-                          </div>
-                          <div
-                            data-value="M"
-                            className="swatch-element m available"
-                          >
-                            <input
-                              className="swatchInput"
-                              id="swatch-1-m"
-                              type="radio"
-                              name="option-1"
-                              value="M"
-                            />
-                            <label
-                              className="swatchLbl medium rectangle"
-                              htmlFor="swatch-1-m"
-                              title="M"
-                            >
-                              M
-                            </label>
-                          </div>
-                          <div
-                            data-value="L"
-                            className="swatch-element l available"
-                          >
-                            <input
-                              className="swatchInput"
-                              id="swatch-1-l"
-                              type="radio"
-                              name="option-1"
-                              value="L"
-                            />
-                            <label
-                              className="swatchLbl medium rectangle"
-                              htmlFor="swatch-1-l"
-                              title="L"
-                            >
-                              L
-                            </label>
-                          </div>
-                          <div
-                            data-value="XL"
-                            className="swatch-element xl available"
-                          >
-                            <input
-                              className="swatchInput"
-                              id="swatch-1-xl"
-                              type="radio"
-                              name="option-1"
-                              value="XL"
-                            />
-                            <label
-                              className="swatchLbl medium rectangle"
-                              htmlFor="swatch-1-xl"
-                              title="XL"
-                            >
-                              XL
-                            </label>
-                          </div>
+                          {product?.variants.map((variant) => {
+                            return (
+                              <WeightOption
+                                key={variant.id}
+                                index={variant.id}
+                                title={variant?.optionValues[0]?.presentation}
+                                inStock={variant.inStock}
+                                onWeightOptionSelected={onWeightOptionSelected}
+                              />
+                            );
+                          })}
                         </div>
                       </div>
                       {/*Product Action*/}
@@ -226,28 +169,22 @@ const ProductPage = () => {
                             <div className="qtyField">
                               <a
                                 className="qtyBtn minus"
-                                href="javascript:void(0);"
+                                onClick={() => onSubtractItemCountHandler()}
                               >
-                                <i
-                                  className="fa anm anm-minus-r"
-                                  aria-hidden="true"
-                                ></i>
+                                <BsDash />
                               </a>
                               <input
                                 type="text"
                                 id="Quantity"
                                 name="quantity"
-                                value="1"
+                                value={selectedItemCount}
                                 className="product-form__input qty"
                               />
                               <a
                                 className="qtyBtn plus"
-                                href="javascript:void(0);"
+                                onClick={() => onAddItemCountHandler()}
                               >
-                                <i
-                                  className="fa anm anm-plus-r"
-                                  aria-hidden="true"
-                                ></i>
+                                <BsPlus />
                               </a>
                             </div>
                           </div>

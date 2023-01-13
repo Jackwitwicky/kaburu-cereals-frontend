@@ -1,0 +1,17 @@
+.swatch .swatch-element { display:inline-block; margin-right:8px; cursor:pointer; }
+.swatch .swatchInput + .swatchLbl.color.medium { width:50px; height:50px; }
+.swatch .swatchInput:checked + .swatchLbl { border:2px solid #111111; box-shadow:none; }
+.swatch .swatchInput + .swatchLbl.color { width:30px; padding:0; height:30px; background-repeat:no-repeat; background-position:50% 50%; background-size:100% auto; cursor:pointer; }
+.swatch .swatchInput + .swatchLbl.large { width:40px; height:40px; }
+.swatch .swatchInput + .swatchLbl.large:not(.color) { line-height:36px; }
+.swatch .swatchInput + .swatchLbl { color:#333; font-size:12px; font-weight:400; line-height:28px; text-transform:capitalize; display:inline-block; margin:0; min-width:30px; height:30px; overflow:hidden; text-align:center; background-color:#f9f9f9; padding:0 10px; border:2px solid #fff; box-shadow:0 0 0 1px #ddd;
+  border-radius:0; -ms-transition:all 0.5s ease-in-out; -webkit-transition:all 0.5s ease-in-out; transition:all 0.5s ease-in-out; cursor:pointer; }
+.swatch .swatchInput { display:none; }
+
+.WeightOption__out-of-stock {
+  cursor: not-allowed !important;
+
+  label {
+    cursor: not-allowed !important;
+  }
+}
