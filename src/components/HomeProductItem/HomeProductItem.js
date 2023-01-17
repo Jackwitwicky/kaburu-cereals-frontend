@@ -1,14 +1,15 @@
 import React from 'react';
 
 import './HomeProductItem.scss';
+import { Link } from 'react-router-dom';
 
-const HomeProductItem = ({ image, title }) => {
+const HomeProductItem = ({ image, title, slug }) => {
   return (
     <div className="HomeProductItem box">
       <img src={image} alt="" />
       <div className="link_box">
         <h5>{title}</h5>
-        <a href="">Buy Now</a>
+        <Link to={`/products/${slug}`}>Buy Now</Link>
       </div>
     </div>
   );

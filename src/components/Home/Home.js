@@ -23,9 +23,10 @@ import { getProducts } from '../../actions/productActions';
 const Home = () => {
   const dispatch = useDispatch();
 
-  const products = useSelector((state) => state.products);
-  const allProductsFetched = useSelector((state) => state.allProductsFetched);
-  // const loading = useSelector(state => state.products.loading);
+  const products = useSelector(({ products }) => products.products);
+  const allProductsFetched = useSelector(
+    ({ products }) => products.allProductsFetched
+  );
 
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -45,11 +46,10 @@ const Home = () => {
 
   React.useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
-      {console.log('*** The products after fetching are: ', products)}
       <div className="hero_area">
         {/*header section starts*/}
         <div className="brand_box">
@@ -164,6 +164,7 @@ const Home = () => {
                       key={product?.id}
                       image={product?.master?.images[0]?.largeUrl}
                       title={product?.name}
+                      slug={product?.slug}
                     />
                   );
                 })}

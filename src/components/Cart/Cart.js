@@ -1,14 +1,34 @@
 import React from 'react';
 
 import './Cart.scss';
-import Header from '../Shared/Header/Header';
+import { useSelector, useDispatch } from 'react-redux';
 
-import fruitOne from '../../assets/images/f-1.jpg';
+import Header from '../Shared/Header/Header';
 import CartItem from '../CartItem/CartItem';
 import PageTitle from '../Shared/PageTitle/PageTitle';
 import Footer from '../Footer/Footer';
 
+import { fetchCart } from '../../actions/orderActions';
+import { Link } from 'react-router-dom';
+
 const Cart = () => {
+  const dispatch = useDispatch();
+  const cartFetched = useSelector(({ order }) => order?.cartFetched);
+  const cart = useSelector(({ order }) => order?.lineItems);
+
+  React.useEffect(() => {
+    if (cartFetched) {
+      return;
+    }
+
+    const guestToken = localStorage.getItem('guest_token');
+    const orderNumber = localStorage.getItem('order_number');
+
+    if (guestToken && orderNumber) {
+      dispatch(fetchCart({ guestToken, orderNumber }));
+    }
+  }, [dispatch]);
+
   return (
     <>
       <Header isScrolled={true} />
@@ -32,38 +52,27 @@ const Cart = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <CartItem
-                    image={fruitOne}
-                    title="Orange"
-                    price={120}
-                    weight="1/4"
-                    quantity={1}
-                  />
-                  <CartItem
-                    image={fruitOne}
-                    title="Pineapple"
-                    price={100}
-                    weight="1/2"
-                    quantity={2}
-                  />
-                  <CartItem
-                    image={fruitOne}
-                    title="Grapes"
-                    price={50}
-                    weight="1/2"
-                    quantity={1}
-                  />
+                  {cartFetched &&
+                    cart.map((cartItem) => {
+                      return (
+                        <CartItem
+                          key={cartItem.id}
+                          image={cartItem.variant?.images[0]?.smallUrl}
+                          title={cartItem.variant?.name}
+                          price={cartItem.variant?.displayPrice}
+                          weight={cartItem.variant?.weight}
+                          quantity={cartItem.quantity}
+                          total={cartItem.displayAmount}
+                        />
+                      );
+                    })}
                 </tbody>
                 <tfoot>
                   <tr>
                     <td colSpan="3" className="text-left">
-                      <a
-                        href="http://annimexweb.com/"
-                        className="btn--link cart-continue"
-                      >
-                        <i className="icon icon-arrow-circle-left"></i> Continue
-                        shopping
-                      </a>
+                      <Link to="/products" className="btn--link cart-continue">
+                        Continue shopping
+                      </Link>
                     </td>
                   </tr>
                 </tfoot>

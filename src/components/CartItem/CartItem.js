@@ -1,8 +1,9 @@
 import React from 'react';
 
 import './CartItem.scss';
+import { BsDash, BsPlus, BsTrash } from 'react-icons/bs';
 
-const CartItem = ({ image, title, weight, price, quantity }) => {
+const CartItem = ({ image, title, weight, price, quantity, total }) => {
   return (
     <tr className="cart__row border-bottom line1 cart-flex border-top">
       <td className="cart__image-wrapper cart-flex-item">
@@ -25,13 +26,13 @@ const CartItem = ({ image, title, weight, price, quantity }) => {
         </div>
       </td>
       <td className="cart__price-wrapper cart-flex-item">
-        <span className="money">${price}</span>
+        <span className="money">{price}</span>
       </td>
       <td className="cart__update-wrapper cart-flex-item text-right">
         <div className="cart__qty text-center">
           <div className="qtyField">
             <a className="qtyBtn minus" href="javascript:void(0);">
-              <i className="icon icon-minus"></i>
+              <BsPlus />
             </a>
             <input
               className="cart__qty-input qty"
@@ -42,14 +43,14 @@ const CartItem = ({ image, title, weight, price, quantity }) => {
               pattern="[0-9]*"
             ></input>
             <a className="qtyBtn plus" href="javascript:void(0);">
-              <i className="icon icon-minus"></i>
+              <BsDash />
             </a>
           </div>
         </div>
       </td>
       <td className="text-right small--hide cart-price">
         <div>
-          <span className="money">$735.00</span>
+          <span className="money">{total}</span>
         </div>
       </td>
       <td className="text-center small--hide">
@@ -58,7 +59,7 @@ const CartItem = ({ image, title, weight, price, quantity }) => {
           className="btn btn--secondary cart__remove"
           title="Remove tem"
         >
-          <i className="icon icon anm anm-times-l"></i>
+          <BsTrash />
         </a>
       </td>
     </tr>
