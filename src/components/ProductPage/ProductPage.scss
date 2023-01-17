@@ -253,6 +253,16 @@ a:hover { color: blue }
     margin-bottom: 10px;
 }
 
+.qtyBtn__out-of-stock {
+    cursor: not-allowed !important;
+}
+
+.AddToCartText-product-template {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
 .prInfoRow { margin-bottom:10px; }
 .prInfoRow > div { display:inline-block; margin-right:5%; }
 .prInfoRow .instock { color:#447900; }

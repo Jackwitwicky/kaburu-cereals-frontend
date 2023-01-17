@@ -16,7 +16,7 @@ const initialState = {
   products: []
 };
 
-export const productReducer = (state = initialState, action) => {
+export const products = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return {

@@ -14,8 +14,10 @@ import { getProducts } from '../../actions/productActions';
 const Products = () => {
   const dispatch = useDispatch();
 
-  const allProductsFetched = useSelector((state) => state.allProductsFetched);
-  const products = useSelector((state) => state.products);
+  const allProductsFetched = useSelector(
+    ({ products }) => products.allProductsFetched
+  );
+  const products = useSelector((state) => state.products.products);
 
   React.useEffect(() => {
     if (!allProductsFetched) {

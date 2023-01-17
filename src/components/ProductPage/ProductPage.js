@@ -18,6 +18,8 @@ import securityImg from '../../assets/images/shield.png';
 import globalShippingImg from '../../assets/images/worldwide.png';
 import callImg from '../../assets/images/phone-call.png';
 import { getProducts } from '../../actions/productActions';
+import { createOrder, fetchCart, updateCart } from '../../actions/orderActions';
+import classnames from 'classnames';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -27,12 +29,17 @@ const ProductPage = () => {
   const productSlug = locationPathNames.pop() || locationPathNames.pop();
 
   const product = useSelector((state) =>
-    state.products.find((product) => product.slug === productSlug)
+    state.products.products.find((product) => product.slug === productSlug)
   );
-  const allProductsFetched = useSelector((state) => state.allProductsFetched);
+  const allProductsFetched = useSelector(
+    ({ products }) => products.allProductsFetched
+  );
 
   const [selectedVariant, setSelectedVariant] = React.useState(null);
   const [selectedItemCount, setSelectedItemCount] = React.useState(1);
+  const [cart, setCart] = React.useState({ quantity: 1, variantId: 0 });
+  const [guestToken, setGuestToken] = React.useState();
+  const [orderNumber, setOrderNumber] = React.useState();
 
   React.useEffect(() => {
     if (!allProductsFetched) {
@@ -40,21 +47,52 @@ const ProductPage = () => {
     }
   }, []);
 
+  React.useEffect(() => {
+    const guestToken = localStorage.getItem('guest_token');
+    const orderNumber = localStorage.getItem('order_number');
+
+    if (guestToken && orderNumber) {
+      setGuestToken(guestToken);
+      setOrderNumber(orderNumber);
+      console.log('The token is: ', guestToken);
+      dispatch(fetchCart({ guestToken, orderNumber }));
+    }
+  }, [dispatch]);
+
   const onWeightOptionSelected = (index) => {
     setSelectedVariant(
       product?.variants.find((variant) => variant.id === index)
     );
+    setCart({ ...cart, variantId: index });
   };
 
   const onAddItemCountHandler = () => {
-    setSelectedItemCount(selectedItemCount + 1);
+    if (product?.totalOnHand > 0) {
+      setCart({ ...cart, quantity: selectedItemCount + 1 });
+      setSelectedItemCount(selectedItemCount + 1);
+    }
   };
 
   const onSubtractItemCountHandler = () => {
-    if (selectedItemCount > 1) {
+    if (selectedItemCount > 1 && product?.totalOnHand > 0) {
+      setCart({ ...cart, quantity: selectedItemCount - 1 });
       setSelectedItemCount(selectedItemCount - 1);
     }
   };
+
+  const onAddToCartHandler = () => {
+    console.log('***About to create cart with the following cart: ', cart);
+    if (guestToken && orderNumber) {
+      dispatch(updateCart({ data: cart, guestToken, orderNumber }));
+    } else {
+      dispatch(createOrder(cart));
+    }
+  };
+
+  React.useEffect(() => {
+    // setCart({ quantity: selectedItemCount, variantId: selectedVariant?.id });
+    console.log('The cart now contains: ', cart);
+  }, [cart]);
 
   return (
     <>
@@ -168,7 +206,10 @@ const ProductPage = () => {
                           <div className="wrapQtyBtn">
                             <div className="qtyField">
                               <a
-                                className="qtyBtn minus"
+                                className={classnames('qtyBtn minus', {
+                                  'qtyBtn__out-of-stock':
+                                    product?.totalOnHand === 0
+                                })}
                                 onClick={() => onSubtractItemCountHandler()}
                               >
                                 <BsDash />
@@ -181,7 +222,10 @@ const ProductPage = () => {
                                 className="product-form__input qty"
                               />
                               <a
-                                className="qtyBtn plus"
+                                className={classnames('qtyBtn plus', {
+                                  'qtyBtn__out-of-stock':
+                                    product?.totalOnHand === 0
+                                })}
                                 onClick={() => onAddItemCountHandler()}
                               >
                                 <BsPlus />
@@ -198,6 +242,7 @@ const ProductPage = () => {
                               selectedVariant === null ||
                               product?.totalOnHand === 0
                             }
+                            onClick={() => onAddToCartHandler()}
                           >
                             <span id="AddToCartText-product-template">
                               Add To Cart

@@ -4,10 +4,14 @@ import './Header.css';
 import classnames from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
+import { useSelector } from 'react-redux';
 
 const Header = ({ isScrolled }) => {
   const location = useLocation();
   const isHomePath = location.pathname === '/';
+
+  const cartFetched = useSelector(({ order }) => order?.cartFetched);
+  const cartCount = useSelector(({ order }) => order?.lineItems?.length);
 
   return (
     <>
@@ -68,10 +72,14 @@ const Header = ({ isScrolled }) => {
                         Login
                       </Link>
                     </li>
-                    <li className="nav-item">
+                    <li className="nav-item Header__cart-container">
                       <Link className="nav-link" to="/cart">
                         Cart
                       </Link>
+
+                      {cartFetched && cartCount > 0 && (
+                        <span className="Header__cart-count">{cartCount}</span>
+                      )}
                     </li>
                   </ul>
                   <form className="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
