@@ -9,7 +9,11 @@ import CartItem from '../CartItem/CartItem';
 import PageTitle from '../Shared/PageTitle/PageTitle';
 import Footer from '../Footer/Footer';
 
-import { fetchCart, removeItemFromCart } from '../../actions/orderActions';
+import {
+  fetchCart,
+  removeItemFromCart,
+  updateCartItemQuantity
+} from '../../actions/orderActions';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -30,8 +34,6 @@ const Cart = () => {
   }, [dispatch]);
 
   const onRemoveItemHandler = (cartItemId) => {
-    console.log('***This item will be removed: ', cartItemId);
-
     if (guestToken && orderNumber) {
       dispatch(
         removeItemFromCart({
@@ -41,6 +43,17 @@ const Cart = () => {
         })
       );
     }
+  };
+
+  const onUpdateItemQuantityHandler = (lineItemId, updatedQuantity) => {
+    dispatch(
+      updateCartItemQuantity({
+        data: { quantity: updatedQuantity },
+        guestToken,
+        orderNumber,
+        lineItemId
+      })
+    );
   };
 
   return (
@@ -79,6 +92,9 @@ const Cart = () => {
                           quantity={cartItem.quantity}
                           total={cartItem.displayAmount}
                           onRemoveItemHandler={onRemoveItemHandler}
+                          onUpdateItemQuantityHandler={
+                            onUpdateItemQuantityHandler
+                          }
                         />
                       );
                     })}

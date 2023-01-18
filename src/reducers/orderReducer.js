@@ -10,7 +10,10 @@ import {
   UPDATE_CART_FAILED,
   REMOVE_FROM_CART,
   REMOVE_FROM_CART_SUCCESS,
-  REMOVE_FROM_CART_FAILED
+  REMOVE_FROM_CART_FAILED,
+  UPDATE_CART_ITEM_QUANTITY,
+  UPDATE_CART_ITEM_QUANTITY_FAILED,
+  UPDATE_CART_ITEM_QUANTITY_SUCCESS
 } from '../actionTypes/actionTypes';
 
 const initialState = {
@@ -38,6 +41,7 @@ export const order = (state = initialState, action) => {
     case CREATE_ORDER_FAILED:
     case FETCH_CART_FAILED:
     case UPDATE_CART_FAILED:
+    case UPDATE_CART_ITEM_QUANTITY_FAILED:
     case REMOVE_FROM_CART_FAILED:
       return {
         ...state,
@@ -47,6 +51,7 @@ export const order = (state = initialState, action) => {
     case FETCH_CART:
     case UPDATE_CART:
     case REMOVE_FROM_CART:
+    case UPDATE_CART_ITEM_QUANTITY:
       return {
         ...state,
         loading: true
@@ -58,8 +63,20 @@ export const order = (state = initialState, action) => {
         loading: false,
         lineItems: action.lineItems
       };
+    case UPDATE_CART_ITEM_QUANTITY_SUCCESS: {
+      const foundIndex = state.lineItems.findIndex(
+        (lineItem) => lineItem.id === action.lineItem.id
+      );
+      const updatedLineItems = [...state.lineItems];
+      updatedLineItems[foundIndex] = action.lineItem;
+      return {
+        ...state,
+        cartFetched: true,
+        loading: false,
+        lineItems: updatedLineItems
+      };
+    }
     case REMOVE_FROM_CART_SUCCESS:
-      console.log('***The returned order is: ', action);
       return {
         ...state,
         loading: false

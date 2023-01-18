@@ -11,7 +11,8 @@ const CartItem = ({
   price,
   quantity,
   total,
-  onRemoveItemHandler
+  onRemoveItemHandler,
+  onUpdateItemQuantityHandler
 }) => {
   return (
     <tr className="cart__row border-bottom line1 cart-flex border-top">
@@ -40,8 +41,13 @@ const CartItem = ({
       <td className="cart__update-wrapper cart-flex-item text-right">
         <div className="cart__qty text-center">
           <div className="qtyField">
-            <a className="qtyBtn minus" href="javascript:void(0);">
-              <BsPlus />
+            <a
+              className="qtyBtn minus"
+              onClick={() =>
+                onUpdateItemQuantityHandler(lineItemId, quantity - 1)
+              }
+            >
+              <BsDash />
             </a>
             <input
               className="cart__qty-input qty"
@@ -51,8 +57,13 @@ const CartItem = ({
               value={quantity}
               pattern="[0-9]*"
             ></input>
-            <a className="qtyBtn plus" href="javascript:void(0);">
-              <BsDash />
+            <a
+              className="qtyBtn plus"
+              onClick={() =>
+                onUpdateItemQuantityHandler(lineItemId, quantity + 1)
+              }
+            >
+              <BsPlus />
             </a>
           </div>
         </div>

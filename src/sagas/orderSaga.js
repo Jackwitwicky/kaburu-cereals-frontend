@@ -16,8 +16,12 @@ import {
   REMOVE_FROM_CART_SUCCESS,
   UPDATE_CART,
   UPDATE_CART_FAILED,
+  UPDATE_CART_ITEM_QUANTITY,
+  UPDATE_CART_ITEM_QUANTITY_FAILED,
+  UPDATE_CART_ITEM_QUANTITY_SUCCESS,
   UPDATE_CART_SUCCESS
 } from '../actionTypes/actionTypes';
+import updateCartItemQuantity from '../api/order/update-cart-item-quantity';
 
 function* createOrderSaga(action) {
   try {
@@ -53,6 +57,23 @@ function* updateCartSaga(action) {
   } catch (e) {
     console.log('***The error is: ', e);
     yield put({ type: UPDATE_CART_FAILED, message: e.message });
+  }
+}
+
+function* updateCartItemQuantitySaga(action) {
+  try {
+    action.data.data = { lineItem: action.data.data };
+    console.log('***About to update cart quantity: ', action.data);
+    const orderResponse = yield call(updateCartItemQuantity, action.data);
+
+    console.log('***The response is: ', orderResponse);
+    yield put({
+      type: UPDATE_CART_ITEM_QUANTITY_SUCCESS,
+      lineItem: orderResponse.data
+    });
+  } catch (e) {
+    console.log('***The error is: ', e);
+    yield put({ type: UPDATE_CART_ITEM_QUANTITY_FAILED, message: e.message });
   }
 }
 
@@ -93,6 +114,7 @@ function* orderSaga() {
   yield takeEvery(CREATE_ORDER, createOrderSaga);
   yield takeEvery(FETCH_CART, fetchCartSaga);
   yield takeEvery(UPDATE_CART, updateCartSaga);
+  yield takeEvery(UPDATE_CART_ITEM_QUANTITY, updateCartItemQuantitySaga);
   yield takeEvery(REMOVE_FROM_CART, removeFromCartSaga);
 }
 
