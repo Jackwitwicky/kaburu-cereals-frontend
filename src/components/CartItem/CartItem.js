@@ -3,7 +3,16 @@ import React from 'react';
 import './CartItem.scss';
 import { BsDash, BsPlus, BsTrash } from 'react-icons/bs';
 
-const CartItem = ({ image, title, weight, price, quantity, total }) => {
+const CartItem = ({
+  lineItemId,
+  image,
+  title,
+  weight,
+  price,
+  quantity,
+  total,
+  onRemoveItemHandler
+}) => {
   return (
     <tr className="cart__row border-bottom line1 cart-flex border-top">
       <td className="cart__image-wrapper cart-flex-item">
@@ -54,13 +63,13 @@ const CartItem = ({ image, title, weight, price, quantity, total }) => {
         </div>
       </td>
       <td className="text-center small--hide">
-        <a
-          href="#"
+        <div
           className="btn btn--secondary cart__remove"
           title="Remove tem"
+          onClick={() => onRemoveItemHandler(lineItemId)}
         >
           <BsTrash />
-        </a>
+        </div>
       </td>
     </tr>
   );

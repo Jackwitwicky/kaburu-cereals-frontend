@@ -1,7 +1,8 @@
 import {
   CREATE_ORDER,
   FETCH_CART,
-  UPDATE_CART
+  UPDATE_CART,
+  REMOVE_FROM_CART
 } from '../actionTypes/actionTypes';
 
 const createOrder = (data) => {
@@ -22,5 +23,11 @@ const updateCart = (data) => {
     data
   };
 };
+const removeItemFromCart = (data) => {
+  return {
+    type: REMOVE_FROM_CART,
+    data
+  };
+};
 
-export { createOrder, fetchCart, updateCart };
+export { createOrder, fetchCart, updateCart, removeItemFromCart };

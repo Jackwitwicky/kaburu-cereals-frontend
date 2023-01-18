@@ -7,7 +7,10 @@ import {
   FETCH_CART_FAILED,
   UPDATE_CART,
   UPDATE_CART_SUCCESS,
-  UPDATE_CART_FAILED
+  UPDATE_CART_FAILED,
+  REMOVE_FROM_CART,
+  REMOVE_FROM_CART_SUCCESS,
+  REMOVE_FROM_CART_FAILED
 } from '../actionTypes/actionTypes';
 
 const initialState = {
@@ -35,17 +38,15 @@ export const order = (state = initialState, action) => {
     case CREATE_ORDER_FAILED:
     case FETCH_CART_FAILED:
     case UPDATE_CART_FAILED:
+    case REMOVE_FROM_CART_FAILED:
       return {
         ...state,
         loading: false,
         error: action.message
       };
     case FETCH_CART:
-      return {
-        ...state,
-        loading: true
-      };
     case UPDATE_CART:
+    case REMOVE_FROM_CART:
       return {
         ...state,
         loading: true
@@ -56,6 +57,12 @@ export const order = (state = initialState, action) => {
         cartFetched: true,
         loading: false,
         lineItems: action.lineItems
+      };
+    case REMOVE_FROM_CART_SUCCESS:
+      console.log('***The returned order is: ', action);
+      return {
+        ...state,
+        loading: false
       };
     default:
       return state;

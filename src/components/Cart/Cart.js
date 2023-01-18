@@ -2,32 +2,46 @@ import React from 'react';
 
 import './Cart.scss';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Header from '../Shared/Header/Header';
 import CartItem from '../CartItem/CartItem';
 import PageTitle from '../Shared/PageTitle/PageTitle';
 import Footer from '../Footer/Footer';
 
-import { fetchCart } from '../../actions/orderActions';
-import { Link } from 'react-router-dom';
+import { fetchCart, removeItemFromCart } from '../../actions/orderActions';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartFetched = useSelector(({ order }) => order?.cartFetched);
   const cart = useSelector(({ order }) => order?.lineItems);
 
+  const guestToken = localStorage.getItem('guest_token');
+  const orderNumber = localStorage.getItem('order_number');
+
   React.useEffect(() => {
     if (cartFetched) {
       return;
     }
 
-    const guestToken = localStorage.getItem('guest_token');
-    const orderNumber = localStorage.getItem('order_number');
-
     if (guestToken && orderNumber) {
       dispatch(fetchCart({ guestToken, orderNumber }));
     }
   }, [dispatch]);
+
+  const onRemoveItemHandler = (cartItemId) => {
+    console.log('***This item will be removed: ', cartItemId);
+
+    if (guestToken && orderNumber) {
+      dispatch(
+        removeItemFromCart({
+          lineItemId: cartItemId,
+          guestToken,
+          orderNumber
+        })
+      );
+    }
+  };
 
   return (
     <>
@@ -57,12 +71,14 @@ const Cart = () => {
                       return (
                         <CartItem
                           key={cartItem.id}
+                          lineItemId={cartItem.id}
                           image={cartItem.variant?.images[0]?.smallUrl}
                           title={cartItem.variant?.name}
                           price={cartItem.variant?.displayPrice}
                           weight={cartItem.variant?.weight}
                           quantity={cartItem.quantity}
                           total={cartItem.displayAmount}
+                          onRemoveItemHandler={onRemoveItemHandler}
                         />
                       );
                     })}
