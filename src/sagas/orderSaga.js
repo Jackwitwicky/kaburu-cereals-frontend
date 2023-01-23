@@ -14,6 +14,7 @@ import {
   REMOVE_FROM_CART,
   REMOVE_FROM_CART_FAILED,
   REMOVE_FROM_CART_SUCCESS,
+  SHOW_ALERT,
   UPDATE_CART,
   UPDATE_CART_FAILED,
   UPDATE_CART_ITEM_QUANTITY,
@@ -22,10 +23,10 @@ import {
   UPDATE_CART_SUCCESS
 } from '../actionTypes/actionTypes';
 import updateCartItemQuantity from '../api/order/update-cart-item-quantity';
+import { ERROR_ALERT_TYPE, SUCCESS_ALERT_TYPE } from '../reducers/alertReducer';
 
 function* createOrderSaga(action) {
   try {
-    console.log('***About to create order: ', action.data);
     const orderData = { lineItemsAttributes: [action.data] };
     const orderResponse = yield call(createOrder, orderData);
 
@@ -37,6 +38,13 @@ function* createOrderSaga(action) {
       type: CREATE_ORDER_SUCCESS,
       lineItems: orderResponse.data.lineItems
     });
+    yield put({
+      type: SHOW_ALERT,
+      data: {
+        message: 'Added to Cart successfully',
+        alertType: SUCCESS_ALERT_TYPE
+      }
+    });
   } catch (e) {
     console.log('***The error is: ', e);
     yield put({ type: CREATE_ORDER_FAILED, message: e.message });
@@ -46,13 +54,19 @@ function* createOrderSaga(action) {
 function* updateCartSaga(action) {
   try {
     action.data.data = { lineItemsAttributes: [action.data.data] };
-    console.log('***About to update order: ', action.data);
     const orderResponse = yield call(updateCart, action.data);
 
     console.log('The order response is: ', orderResponse);
     yield put({
       type: UPDATE_CART_SUCCESS,
       lineItems: orderResponse.data.lineItems
+    });
+    yield put({
+      type: SHOW_ALERT,
+      data: {
+        message: 'Added to Cart successfully',
+        alertType: SUCCESS_ALERT_TYPE
+      }
     });
   } catch (e) {
     console.log('***The error is: ', e);
@@ -63,17 +77,29 @@ function* updateCartSaga(action) {
 function* updateCartItemQuantitySaga(action) {
   try {
     action.data.data = { lineItem: action.data.data };
-    console.log('***About to update cart quantity: ', action.data);
     const orderResponse = yield call(updateCartItemQuantity, action.data);
 
-    console.log('***The response is: ', orderResponse);
     yield put({
       type: UPDATE_CART_ITEM_QUANTITY_SUCCESS,
       lineItem: orderResponse.data
     });
+    yield put({
+      type: SHOW_ALERT,
+      data: {
+        message: 'Cart updated successfully',
+        alertType: SUCCESS_ALERT_TYPE
+      }
+    });
   } catch (e) {
     console.log('***The error is: ', e);
     yield put({ type: UPDATE_CART_ITEM_QUANTITY_FAILED, message: e.message });
+    yield put({
+      type: SHOW_ALERT,
+      data: {
+        message: 'Unable to update cart item',
+        alertType: ERROR_ALERT_TYPE
+      }
+    });
   }
 }
 
@@ -89,6 +115,13 @@ function* removeFromCartSaga(action) {
       type: FETCH_CART_SUCCESS,
       lineItems: orderResponse.data.lineItems
     });
+    yield put({
+      type: SHOW_ALERT,
+      data: {
+        message: 'Item removed successfully',
+        alertType: SUCCESS_ALERT_TYPE
+      }
+    });
   } catch (e) {
     console.log('***The error is: ', e);
     yield put({ type: REMOVE_FROM_CART_FAILED, message: e.message });
@@ -97,12 +130,14 @@ function* removeFromCartSaga(action) {
 
 function* fetchCartSaga(action) {
   try {
-    console.log('***About to fetch cart: ', action.data);
     const orderResponse = yield call(fetchCart, action.data);
-    console.log('The fetch cart response is: ', orderResponse);
+    console.log('The cart is: ', orderResponse);
     yield put({
       type: FETCH_CART_SUCCESS,
-      lineItems: orderResponse.data.lineItems
+      lineItems: orderResponse.data.lineItems,
+      id: orderResponse.data.id,
+      displayPrice: orderResponse.data.displayItemTotal,
+      orderNumber: orderResponse.data.number
     });
   } catch (e) {
     console.log('***The error is: ', e);

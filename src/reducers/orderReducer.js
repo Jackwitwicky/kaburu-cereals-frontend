@@ -20,6 +20,9 @@ const initialState = {
   cartFetched: false,
   loading: false,
   error: '',
+  id: 0,
+  displayPrice: 'Ksh0',
+  orderNumber: 0,
   lineItems: []
 };
 
@@ -36,7 +39,10 @@ export const order = (state = initialState, action) => {
         ...state,
         cartFetched: true,
         loading: false,
-        lineItems: action.lineItems
+        lineItems: action.lineItems,
+        id: action.id,
+        orderNumber: action.orderNumber,
+        displayPrice: action.displayPrice
       };
     case CREATE_ORDER_FAILED:
     case FETCH_CART_FAILED:

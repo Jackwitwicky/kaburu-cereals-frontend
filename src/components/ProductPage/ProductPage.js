@@ -81,18 +81,12 @@ const ProductPage = () => {
   };
 
   const onAddToCartHandler = () => {
-    console.log('***About to create cart with the following cart: ', cart);
     if (guestToken && orderNumber) {
       dispatch(updateCart({ data: cart, guestToken, orderNumber }));
     } else {
       dispatch(createOrder(cart));
     }
   };
-
-  React.useEffect(() => {
-    // setCart({ quantity: selectedItemCount, variantId: selectedVariant?.id });
-    console.log('The cart now contains: ', cart);
-  }, [cart]);
 
   return (
     <>

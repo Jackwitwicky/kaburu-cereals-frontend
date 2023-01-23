@@ -4,14 +4,18 @@ import './Header.css';
 import classnames from 'classnames';
 import { Link, useLocation } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import AlertMessage from '../../AlertMessage/AlertMessage';
+import { hideAlert } from '../../../actions/alertActions';
 
 const Header = ({ isScrolled }) => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const isHomePath = location.pathname === '/';
 
   const cartFetched = useSelector(({ order }) => order?.cartFetched);
   const cartCount = useSelector(({ order }) => order?.lineItems?.length);
+  const alert = useSelector((state) => state.alert);
 
   return (
     <>
@@ -94,6 +98,15 @@ const Header = ({ isScrolled }) => {
           </div>
         </div>
       </section>
+
+      {alert.visible && (
+        <AlertMessage
+          visible={alert.visible}
+          message={alert.message}
+          alertType={alert.alertType}
+          onCloseHandler={() => dispatch(hideAlert())}
+        />
+      )}
 
       {/*end nav section*/}
     </>

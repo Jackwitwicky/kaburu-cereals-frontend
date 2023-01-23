@@ -3,6 +3,9 @@ import React from 'react';
 import './Cart.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
+import classnames from 'classnames';
 
 import Header from '../Shared/Header/Header';
 import CartItem from '../CartItem/CartItem';
@@ -14,14 +17,18 @@ import {
   removeItemFromCart,
   updateCartItemQuantity
 } from '../../actions/orderActions';
+import { showAlert } from '../../actions/alertActions';
 
 const Cart = () => {
   const dispatch = useDispatch();
   const cartFetched = useSelector(({ order }) => order?.cartFetched);
   const cart = useSelector(({ order }) => order?.lineItems);
+  const totalOrderPrice = useSelector(({ order }) => order?.displayPrice);
 
   const guestToken = localStorage.getItem('guest_token');
   const orderNumber = localStorage.getItem('order_number');
+
+  const [termsAccepted, setTermsAccepted] = React.useState(false);
 
   React.useEffect(() => {
     if (cartFetched) {
@@ -56,6 +63,10 @@ const Cart = () => {
     );
   };
 
+  const onTermsAcceptedHandler = () => {
+    setTermsAccepted(!termsAccepted);
+  };
+
   return (
     <>
       <Header isScrolled={true} />
@@ -64,6 +75,14 @@ const Cart = () => {
 
       <div className="container">
         <div className="row">
+          <button
+            onClick={() => {
+              dispatch(showAlert({ message: 'Everything is awesome!!!' }));
+              console.log('Do something!');
+            }}
+          >
+            Show Message
+          </button>
           <div className="col-12 col-sm-12 col-md-8 col-lg-8 main-col">
             <form action="#" method="post" className="cart style2">
               <table>
@@ -136,7 +155,7 @@ const Cart = () => {
                   <strong>Subtotal</strong>
                 </span>
                 <span className="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right">
-                  <span className="money">$735.00</span>
+                  <span className="money">{totalOrderPrice}</span>
                 </span>
               </div>
               <div className="cart__shipping">
@@ -147,9 +166,9 @@ const Cart = () => {
                   I agree with the terms and conditions
                   <input
                     type="checkbox"
-                    name="tearm"
-                    id="cartTearm"
-                    className="checkbox"
+                    checked={termsAccepted}
+                    onChange={onTermsAcceptedHandler}
+                    className="checkbox Cart__terms-checkbox"
                     value="tearm"
                     required=""
                   />
@@ -159,9 +178,20 @@ const Cart = () => {
                 type="submit"
                 name="checkout"
                 id="cartCheckout"
-                className="btn btn--small-wide checkout"
+                className={classnames('btn btn--small-wide checkout', {
+                  btn__disabled: !termsAccepted
+                })}
                 value="Checkout"
+                data-tooltip-content="Accept the terms above to checkout"
               />
+
+              {!termsAccepted && (
+                <Tooltip
+                  anchorId="cartCheckout"
+                  place="bottom"
+                  events={['hover', 'click']}
+                />
+              )}
             </div>
           </div>
         </div>
